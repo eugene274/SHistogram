@@ -56,12 +56,12 @@ void SHistoBuilder::AddAllCorrelations() {
     }
   }
 }
-void SHistoBuilder::Fill() {
+void SHistoBuilder::Fill(double weight) {
   for (auto h1d_entry : h1d) {
     AxisIndex ax_id = h1d_entry.first;
 
     double val = *(dp_array[ax_id]);
-    h1d_entry.second->Fill(val);
+    h1d_entry.second->Fill(val, weight);
   }
 
   for (auto h2d_entry : h2d) {
@@ -72,7 +72,7 @@ void SHistoBuilder::Fill() {
     double ax1_val = *(dp_array[ax1_id]);
     double ax2_val = *(dp_array[ax2_id]);
 
-    hist->Fill(ax1_val, ax2_val);
+    hist->Fill(ax1_val, ax2_val, weight);
   }
 }
 

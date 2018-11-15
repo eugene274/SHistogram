@@ -39,7 +39,7 @@ class SHistoBuilder {
 
   void AddAllCorrelations();
 
-  void Fill();
+  void Fill(double weight = 0);
 
   void SetDataPointer(AxisIndex axis, double *dp) {
     dp_array[axis] = dp;
