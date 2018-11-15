@@ -24,7 +24,7 @@ install(
 
 install(
         FILES SHistoBuilder.h
-        DESTINATION ${PROJECT_NAME}/include
+        DESTINATION include/${PROJECT_NAME}
 )
 
 
