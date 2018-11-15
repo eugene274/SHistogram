@@ -33,7 +33,7 @@ SHistoBuilder::CorrelationIndex SHistoBuilder::AddCorrelation(AxisIndex a1, Axis
             ));
     return correlationIndex;
   }
-  const char *h_name = Form("%s_%sVs%s", prefix.c_str(), a2_ax->GetName(), a1_ax->GetName());
+  const char *h_name = GetH2Name(correlationIndex);
   const char *h_title = Form("%s vs %s", a2_ax->GetTitle(), a1_ax->GetTitle());
   auto *hist = new TH2D(h_name, h_title,
                         a1_ax->GetNbins(), a1_ax->GetXmin(), a1_ax->GetXmax(),
@@ -86,7 +86,7 @@ SHistoBuilder::AxisIndex SHistoBuilder::AddHistogram(const int index) {
     return axisIndex;
   }
 
-  const char *h_name = Form("%s_%s", prefix.c_str(), axis->GetName());
+  const char *h_name = GetH1Name(axisIndex);
   auto *hist = new TH1D(h_name, axis->GetTitle(), axis->GetNbins(), axis->GetXmin(), axis->GetXmax());
   hist->SetXTitle(axis->GetTitle());
   h1d.insert({axisIndex, hist});

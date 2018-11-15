@@ -35,6 +35,9 @@ TEST(TestSHistoBuilder, FillRandom) {
   histoBuilder.AddHistogram(PT_AX);
   auto correlation = histoBuilder.AddCorrelations({{PHI_AX, PT_AX}, {Y_AX, PT_AX}});
 
+  SHistoBuilder histoBuilderCopy(histoBuilder);
+  histoBuilderCopy.SetPrefix("test2");
+
   for (int i = 0; i < 1000; ++i) {
     var_phi = 2*TMath::Pi()*gRandom->Rndm();
     var_pt = 5*gRandom->Rndm();
