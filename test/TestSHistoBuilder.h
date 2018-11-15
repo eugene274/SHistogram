@@ -24,14 +24,15 @@ TEST(TestSHistoBuilder, FillRandom) {
   Double_t var_pt = 0;
   Double_t var_y = 0;
 
-  TFile ff("Test_SHistoBuilder.root", "recreate");
-  ff.cd();
 
   auto PHI_AX = histoBuilder.AddAxis("Phi", 100, 0, 2*TMath::Pi(), &var_phi, "\\phi [rad]");
   auto PT_AX = histoBuilder.AddAxis("Pt", 100, 0, 5, &var_pt, "p_{T} [GeV/c]");
   auto Y_AX = histoBuilder.AddAxis("Y", 100, -1, 5, &var_y, "Y");
 
-  histoBuilder.AddAllHistograms();
+  TFile ff("Test_SHistoBuilder.root", "recreate");
+  ff.cd();
+
+  histoBuilder.AddHistogram(PT_AX);
   auto correlation = histoBuilder.AddCorrelations({{PHI_AX, PT_AX}, {Y_AX, PT_AX}});
 
   for (int i = 0; i < 1000; ++i) {

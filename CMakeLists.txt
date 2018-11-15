@@ -15,6 +15,19 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 add_library(SHistogram SHARED SHistoBuilder.cxx SHistoBuilder.h)
 target_link_libraries(SHistogram PUBLIC ${ROOT_LIBRARIES})
 
+
+install(
+        TARGETS SHistogram
+        LIBRARY DESTINATION lib
+        INCLUDES DESTINATION include
+)
+
+install(
+        FILES SHistoBuilder.h
+        DESTINATION includes
+)
+
+
 if (${CMAKE_BUILD_TYPE} MATCHES Debug)
     enable_testing()
 
