@@ -92,17 +92,45 @@ class SHistoBuilder {
     return *(h1d[index]);
   }
 
+  SHistoBuilder &operator=(const SHistoBuilder &other) {
+    if (this == &other) {
+      return *this;
+    }
+
+    // do a copy
+    prefix = other.prefix + "_copy";
+    axis_array = other.axis_array;
+
+    for (auto h1d_entry : other.h1d) {
+      auto new_name = GetH1Name(h1d_entry.first);
+      auto *new_h1 = h1d_entry.second->Clone(new_name);
+      h1d_entry.second = (TH1D *) new_h1;
+      h1d.insert(h1d_entry);
+    }
+
+    for (auto h2d_entry : other.h2d) {
+      auto new_name = GetH2Name(h2d_entry.first);
+      auto *new_h2 = h2d_entry.second->Clone(new_name);
+      h2d_entry.second = (TH2D *) new_h2;
+      h2d.insert(h2d_entry);
+    }
+
+    dp_array.reserve(axis_array.size());
+
+    return *this;
+  }
+
  private:
   const char *GetH1Name(const AxisIndex &axisIndex) {
     return Form("%s_%s",
-        prefix.c_str(), axis_array[axisIndex]->GetName()
-        );
+                prefix.c_str(), axis_array[axisIndex]->GetName()
+    );
   }
 
   const char *GetH2Name(const CorrelationIndex &correlationIndex) {
     return Form("%s_%sVs%s",
-        prefix.c_str(), axis_array[correlationIndex[1]]->GetName(), axis_array[correlationIndex[0]]->GetName()
-        );
+                prefix.c_str(), axis_array[correlationIndex[1]]->GetName(), axis_array[correlationIndex[0]]->GetName()
+    );
   }
 
   struct index_correlation_hash {
