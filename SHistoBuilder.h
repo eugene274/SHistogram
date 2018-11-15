@@ -45,6 +45,10 @@ class SHistoBuilder {
     dp_array[axis] = dp;
   }
 
+  void SetPrefix(const std::string &prefix) {
+    SHistoBuilder::prefix = prefix;
+  }
+
   TH2D &operator[](const CorrelationIndex &index) {
     return *(h2d[index]);
   }
